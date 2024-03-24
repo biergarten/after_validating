@@ -51,9 +51,17 @@ export class EditApplicationComponent implements OnInit {
 
 
   referApplication() {
-    this.applicationsService.referApplication(this.applicationForm.getRawValue()).subscribe({
-      // next: () => this.router.navigate(['/contacts/edit'])
-      next: () => window.location.reload()
-    });
+    this.applicationsService.referApplication(this.applicationForm.getRawValue()).subscribe(
+      () => {
+        this.applicationForm.reset();
+        this.applicationsService.getNextApplicationPolling().subscribe((appl) => {
+          if (!appl) {
+            //return;
+          }
+          else
+            this.applicationForm.setValue(appl);
+        });
+      }
+    );
   }
 }
