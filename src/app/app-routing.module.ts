@@ -1,22 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditContactComponent } from './edit-contact/edit-contact.component';
-import { ContactListComponent } from './contact-list/contact-list.component';
+import { EditApplicationComponent } from './edit-contact/edit-application.component';
 
 const routes: Routes = [
   {
-    path: 'contacts',
-    component: ContactListComponent,
-    title: 'Contacts'
-  },
-  {
     path: 'contacts/edit/:id',
-    component: EditContactComponent,
+    component: EditApplicationComponent,
     title: 'Contacts - Edit'
   },
   {
     path: 'contacts/edit',
-    component: EditContactComponent,
+    component: EditApplicationComponent,
     title: 'Contacts - Edit'
   },
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },

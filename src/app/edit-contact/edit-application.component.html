@@ -1,0 +1,40 @@
+<div class="content">
+  <h1 class="header">
+    Edit Contact
+  </h1>
+  <form [formGroup]="applicationForm" (ngSubmit)="referApplication()">
+    <section>
+      <nav>Basic Info</nav>
+      <div>
+        <input formControlName="emailLocation" [class.error]="emailLocation.invalid && emailLocation.touched"
+          placeholder="Email Location" />
+        <em *ngIf="emailLocation.errors?.['required'] && emailLocation.touched">Please enter a Email Location</em>
+        <em *ngIf="emailLocation.errors?.['minlength'] && emailLocation.touched">Email Location must be at least 3
+          characters</em>
+        <input formControlName="membershipType" placeholder="Membership Type" />
+      </div>
+    </section>
+    <section>
+      <nav>Person</nav>
+      <div>
+        <div formGroupName="person" class="person"
+          [class.error]="applicationForm.controls.person.invalid && applicationForm.controls.person.dirty">
+
+          <input placeholder="Phone" formControlName="phone" />
+          <input placeholder="Email" formControlName="email" />
+          <div formGroupName="name">
+            <input placeholder="FirstName" formControlName="firstName" />
+            <input placeholder="LastName" formControlName="lastName" />
+
+          </div>
+        </div>
+        <em *ngIf="applicationForm.controls.person.invalid && applicationForm.controls.person.dirty">Incomplete
+          Address</em>
+      </div>
+    </section>
+    <div class="buttons">
+      <button class="secondary">Cancel</button>
+      <button type="submit" class="primary">Save</button>
+    </div>
+  </form>
+</div>
