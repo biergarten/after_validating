@@ -11,7 +11,11 @@
         <em *ngIf="emailLocation.errors?.['required'] && emailLocation.touched">Please enter a Email Location</em>
         <em *ngIf="emailLocation.errors?.['minlength'] && emailLocation.touched">Email Location must be at least 3
           characters</em>
-        <input formControlName="membershipType" placeholder="Membership Type" />
+        <input formControlName="membershipType" [class.error]="membershipType.invalid && membershipType.touched"
+          placeholder="Membership Type" />
+        <em *ngIf="membershipType.errors?.['required'] && membershipType.touched">Please enter a membership type</em>
+        <em *ngIf="membershipType.errors?.['minlength'] && membershipType.touched">Membership type must be at least
+          3</em>
       </div>
     </section>
     <section>
@@ -34,7 +38,8 @@
     </section>
     <div class="buttons">
       <button class="secondary">Cancel</button>
-      <button type="submit" class="primary">Save</button>
+      <button class="secondary" (click)="referToBoard()">Refer to board</button>
+      <button type="submit" class="primary">Refer</button>
     </div>
   </form>
 </div>

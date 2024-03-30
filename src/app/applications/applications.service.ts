@@ -51,6 +51,14 @@ export class ApplicationsService {
 
   }
 
+  referToBoard(application: Partial<MembershipApplication>): Observable<MembershipApplication> {
+    const headers = { headers: { 'Content-Type': 'application/json' } };
+
+
+    return this.http.put<MembershipApplication>(`${this.baseUrl}api/membershipapplication/${application.id}/refer-to-board`, application, headers)
+
+  }
+
   referVoidApplication(application: Partial<MembershipApplication>): Observable<any> {
     const headers = { headers: { 'Content-Type': 'application/json' } };
 
