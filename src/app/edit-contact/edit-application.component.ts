@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApplicationsService } from '../applications/applications.service';
 import { phoneTypeValues, addressTypeValues, MembershipApplication } from '../applications/application.model';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './edit-application.component.html',
   styleUrls: ['./edit-application.component.css'],
   standalone: true,
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     NgIf]
@@ -36,7 +36,8 @@ export class EditApplicationComponent implements OnInit {
 
   constructor(
     private applicationsService: ApplicationsService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -72,6 +73,7 @@ export class EditApplicationComponent implements OnInit {
     obs$.subscribe(
       () => {
         this.applicationForm.reset();
+        this.cd.markForCheck();
         this.applicationsService.getNextApplicationPolling().subscribe((appl) => {
           if (!appl) {
             //return;
