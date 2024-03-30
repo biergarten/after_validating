@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationsService } from '../applications/applications.service';
 import { phoneTypeValues, addressTypeValues } from '../applications/application.model';
-import { restrictedWords } from '../validators/restricted-words.validator';
 
 @Component({
   templateUrl: './edit-application.component.html',
@@ -30,9 +28,7 @@ export class EditApplicationComponent implements OnInit {
   });
 
   constructor(
-    private route: ActivatedRoute,
     private applicationsService: ApplicationsService,
-    private router: Router,
     private fb: FormBuilder) { }
 
   ngOnInit() {
