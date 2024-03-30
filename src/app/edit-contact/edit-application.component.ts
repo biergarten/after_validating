@@ -58,32 +58,14 @@ export class EditApplicationComponent implements OnInit {
 
 
   referApplication() {
-    this.applicationsService.referApplication(this.applicationForm.getRawValue()).subscribe(
-      () => {
-        this.applicationForm.reset();
-        this.applicationsService.getNextApplicationPolling().subscribe((appl) => {
-          if (!appl) {
-            //return;
-          }
-          else
-            this.applicationForm.setValue(appl);
-        });
-      }
-    );
+    const referApplication$ = this.applicationsService.referApplication(this.applicationForm.getRawValue());
+
+    this.prepareForNext(referApplication$);
   }
   referToBoard() {
-    this.applicationsService.referToBoard(this.applicationForm.getRawValue()).subscribe(
-      () => {
-        this.applicationForm.reset();
-        this.applicationsService.getNextApplicationPolling().subscribe((appl) => {
-          if (!appl) {
-            //return;
-          }
-          else
-            this.applicationForm.setValue(appl);
-        });
-      }
-    );
+    const referToBoard$ = this.applicationsService.referToBoard(this.applicationForm.getRawValue());
+    this.prepareForNext(referToBoard$);
+
   }
 
   prepareForNext(obs$: Observable<MembershipApplication>): void {
