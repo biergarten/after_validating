@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApplicationsService } from '../applications/applications.service';
 import { phoneTypeValues, addressTypeValues } from '../applications/application.model';
+import { NgIf } from '@angular/common';
 
 @Component({
   templateUrl: './edit-application.component.html',
-  styleUrls: ['./edit-application.component.css']
+  styleUrls: ['./edit-application.component.css'],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+    NgIf]
 })
 export class EditApplicationComponent implements OnInit {
   phoneTypes = phoneTypeValues;
