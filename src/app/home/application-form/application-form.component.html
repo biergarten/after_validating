@@ -1,0 +1,41 @@
+<form [formGroup]="applicationForm">
+    <section>
+        <nav>Basic Info</nav>
+        <div>
+            <input formControlName="emailLocation" [class.error]="emailLocation.invalid && emailLocation.touched"
+                placeholder="Email Location" />
+            <em *ngIf="emailLocation.errors?.['required'] && emailLocation.touched">Please enter a Email Location</em>
+            <em *ngIf="emailLocation.errors?.['minlength'] && emailLocation.touched">Email Location must be at least 3
+                characters</em>
+            <input formControlName="membershipType" [class.error]="membershipType.invalid && membershipType.touched"
+                placeholder="Membership Type" />
+            <em *ngIf="membershipType.errors?.['required'] && membershipType.touched">Please enter a membership
+                type</em>
+            <em *ngIf="membershipType.errors?.['minlength'] && membershipType.touched">Membership type must be at least
+                3</em>
+        </div>
+    </section>
+    <section>
+        <nav>Person</nav>
+        <div>
+            <div formGroupName="person" class="person"
+                [class.error]="applicationForm.controls.person.invalid && applicationForm.controls.person.dirty">
+
+                <input placeholder="Phone" formControlName="phone" />
+                <input placeholder="Email" formControlName="email" />
+                <div formGroupName="name">
+                    <input placeholder="FirstName" formControlName="firstName" />
+                    <input placeholder="LastName" formControlName="lastName" />
+
+                </div>
+            </div>
+            <em *ngIf="applicationForm.controls.person.invalid && applicationForm.controls.person.dirty">Incomplete
+                Address</em>
+        </div>
+    </section>
+    <div class="buttons">
+        <button class="secondary">Cancel</button>
+        <button class="secondary" (click)="referToBoard()">Refer to board</button>
+        <button class="primary" (click)="referToBoard()">Refer</button>
+    </div>
+</form>

@@ -12,9 +12,9 @@ export class ApplicationsService {
 
 
   baseUrl = 'https://localhost:7278/';
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
-    this.getNextApplication().subscribe(
+    this.getNextApplicationPolling().subscribe(
       app => this._application.set(app)
     );
   }
@@ -26,9 +26,9 @@ export class ApplicationsService {
     return this.http.get<MembershipApplication>(`${this.baseUrl}api/membershipapplication/${id}`);
   }
 
-  getNextApplication(): Observable<MembershipApplication | undefined> {
-    return this.getNextApplicationPolling(10000);
-  }
+  // getNextApplication(): Observable<MembershipApplication | undefined> {
+  //   return this.getNextApplicationPolling(10000);
+  // }
 
   getNextApplicationPolling(pollingInterval: number = 10000): Observable<MembershipApplication | undefined> {
     return this.http.put<MembershipApplication>(`${this.baseUrl}api/membershipapplication/assign/franco`, null)
