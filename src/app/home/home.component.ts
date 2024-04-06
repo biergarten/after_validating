@@ -6,15 +6,15 @@ import { NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 
 @Component({
-  templateUrl: './edit-application.component.html',
-  styleUrls: ['./edit-application.component.css'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     NgIf]
 })
-export class EditApplicationComponent implements OnInit {
+export class HomeComponent implements OnInit {
   phoneTypes = phoneTypeValues;
   addressTypes = addressTypeValues;
   applicationForm = this.fb.nonNullable.group({

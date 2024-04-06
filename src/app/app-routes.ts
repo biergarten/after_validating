@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-import { EditApplicationComponent } from './edit-contact/edit-application.component';
+import { HomeComponent } from './home/home.component';
 
 export const APP_ROUTES: Routes = [
   {
-    path: 'contacts/edit/:id',
-    component: EditApplicationComponent,
-    title: 'Contacts - Edit'
+    path: 'home/:id',
+    component: HomeComponent,
+    title: 'Home'
   },
   {
-    path: 'contacts/edit',
-    component: EditApplicationComponent,
-    title: 'Contacts - Edit'
+    path: 'home',
+    component: HomeComponent,
+    title: 'Home'
   },
-  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 
