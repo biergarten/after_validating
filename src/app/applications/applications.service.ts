@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, WritableSignal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
 import { MembershipApplication } from './application.model';
@@ -7,9 +7,21 @@ import { MembershipApplication } from './application.model';
   providedIn: 'root',
 })
 export class ApplicationsService {
-  baseUrl = 'https://localhost:7278/';
-  constructor(private http: HttpClient) { }
 
+  private _application: WritableSignal<MembershipApplication | undefined> = signal(undefined);
+
+
+  baseUrl = 'https://localhost:7278/';
+  constructor(private http: HttpClient) { 
+
+    this.getNextApplication().subscribe(
+      app => this._application.set(app)
+    );
+  }
+
+  get application(): WritableSignal<MembershipApplication | undefined> {
+    return this._application;
+  }
   getApplication(id: string): Observable<MembershipApplication | undefined> {
     return this.http.get<MembershipApplication>(`${this.baseUrl}api/membershipapplication/${id}`);
   }

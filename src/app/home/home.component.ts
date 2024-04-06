@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, WritableSignal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApplicationsService } from '../applications/applications.service';
 import { phoneTypeValues, addressTypeValues, MembershipApplication } from '../applications/application.model';
 import { NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
+import { ApplicationForm } from '../models/interfaces/application-form.model';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+
 
 @Component({
   templateUrl: './home.component.html',
@@ -15,9 +18,15 @@ import { Observable } from 'rxjs';
     NgIf]
 })
 export class HomeComponent implements OnInit {
+
+
+  application: WritableSignal<MembershipApplication | undefined> = this.applicationsService.application;
+  application$ = toObservable(this.application);
+
+
   phoneTypes = phoneTypeValues;
   addressTypes = addressTypeValues;
-  applicationForm = this.fb.nonNullable.group({
+  applicationForm: FormGroup<ApplicationForm> = this.fb.nonNullable.group({
     id: '',
     assignToUserId: '',
     dateInitiated: '',
@@ -41,8 +50,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.applicationsService.getNextApplication().subscribe((application) => {
+    // this.applicationForm.patchValue(this.application);
+    this.application$.subscribe((application) => {
       if (!application) return;
 
       this.applicationForm.setValue(application);
